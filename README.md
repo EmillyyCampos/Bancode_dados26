@@ -1,7 +1,7 @@
 # 🗄️ Banco de Dados 
 Repositório dedicado ao armazenamento, organização e gerenciamento de dados, com foco em integridade, desempenho e escalabilidade.
 
-#Lista de Exercícios
+# Lista de Exercícios
 ---
 Hotel modelo conceitual: https://app.brmodeloweb.com/#!/publicview/69d6b74fde33eeb5ddb599fc
 ---
