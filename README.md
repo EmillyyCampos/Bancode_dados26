@@ -3,7 +3,7 @@ Repositório dedicado ao armazenamento, organização e gerenciamento de dados, 
 
 # Exercícios
 ---
-Hotel modelo conceitual: https://app.brmodeloweb.com/#!/publicview/69d6b74fde33eeb5ddb599fc
+Imobiliaria modelo conceitual: https://app.brmodeloweb.com/#!/publicview/69dd77d9c630eb74498a2118
 ---
 Escola modelo conceitual: https://app.brmodeloweb.com/#!/publicview/69d6b791de33eeb5ddb59a37
 Escola modelo lógico: https://app.brmodeloweb.com/#!/publicview/69d6b7ddde33eeb5ddb59a84
