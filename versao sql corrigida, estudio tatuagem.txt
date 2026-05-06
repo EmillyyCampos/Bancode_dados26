@@ -39,7 +39,7 @@ CREATE TABLE Agendamento (
     valorTatuagem DECIMAL(10,2),
     dataAgendamento DATE NOT NULL,
     horaAgendamento TIME NOT NULL,
-    desenhoAprovado BOOLEAN,
+    desenhoAprovado BIT,
     idTatuador INT,
     idCliente INT,
     
