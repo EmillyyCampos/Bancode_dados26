@@ -1,0 +1,53 @@
+VERSAO CORRIGIDA SQL - MECANICA
+
+CREATE TABLE equipe_mecanicos (
+    cpf CHAR(11) PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    telefone VARCHAR(15),
+    data_admissao DATE NOT NULL
+);
+
+CREATE TABLE servico (
+    idServico INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    descricao VARCHAR(255),
+    tempo_execucao TIME
+);
+
+CREATE TABLE clientes (
+    idCliente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    cpf CHAR(11) UNIQUE,
+    email VARCHAR(100)
+);
+
+CREATE TABLE veiculo (
+    placa VARCHAR(10) PRIMARY KEY,
+    marca VARCHAR(50) NOT NULL,
+    modelo VARCHAR(50) NOT NULL,
+    cor VARCHAR(30),
+    ano YEAR,
+    nome_proprietario VARCHAR(100),
+    idCliente INT,
+    
+    FOREIGN KEY (idCliente) REFERENCES clientes(idCliente)
+);
+
+CREATE TABLE habilitados (
+    cpf CHAR(11),
+    idServico INT,
+    
+    PRIMARY KEY (cpf, idServico),
+    
+    FOREIGN KEY (cpf) REFERENCES equipe_mecanicos(cpf),
+    FOREIGN KEY (idServico) REFERENCES servico(idServico)
+);
+
+CREATE TABLE ordem_servico (
+    idOrdemServico INT PRIMARY KEY AUTO_INCREMENT,
+    placa VARCHAR(10),
+    cpf CHAR(11),
+    
+    FOREIGN KEY (placa) REFERENCES veiculo(placa),
+    FOREIGN KEY (cpf) REFERENCES equipe_mecanicos(cpf)
+);

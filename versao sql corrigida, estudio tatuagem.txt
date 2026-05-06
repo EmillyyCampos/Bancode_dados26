@@ -1,0 +1,58 @@
+VERSAO SQL CORRIGIDA - MODELO ESTUDIO DE TATUAGEM	
+
+CREATE TABLE Senioridade (
+    idSenioridade INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Tatuador (
+    idTatuador INT PRIMARY KEY AUTO_INCREMENT,
+    nomeTatuador VARCHAR(100) NOT NULL,
+    cpf CHAR(11) UNIQUE NOT NULL,
+    telefone VARCHAR(15),
+    email VARCHAR(100) UNIQUE,
+    dataContratacao DATE NOT NULL,
+    idSenioridade INT,
+    
+    FOREIGN KEY (idSenioridade) REFERENCES Senioridade(idSenioridade)
+);
+
+CREATE TABLE Cliente (
+    idCliente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    cpf CHAR(11) UNIQUE NOT NULL,
+    telefone VARCHAR(15),
+    cidade VARCHAR(100),
+    uf CHAR(2),
+    dataCadastro DATE NOT NULL
+);
+
+CREATE TABLE Estilo (
+    idEstilo INT PRIMARY KEY AUTO_INCREMENT,
+    estilo VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Agendamento (
+    idAgendamento INT PRIMARY KEY AUTO_INCREMENT,
+    descricaoTatuagem VARCHAR(255),
+    status VARCHAR(30),
+    valorTatuagem DECIMAL(10,2),
+    dataAgendamento DATE NOT NULL,
+    horaAgendamento TIME NOT NULL,
+    desenhoAprovado BOOLEAN,
+    idTatuador INT,
+    idCliente INT,
+    
+    FOREIGN KEY (idTatuador) REFERENCES Tatuador(idTatuador),
+    FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente)
+);
+
+CREATE TABLE Possui (
+    idEstilo INT,
+    idTatuador INT,
+    
+    PRIMARY KEY (idEstilo, idTatuador),
+    
+    FOREIGN KEY (idEstilo) REFERENCES Estilo(idEstilo),
+    FOREIGN KEY (idTatuador) REFERENCES Tatuador(idTatuador)
+);
