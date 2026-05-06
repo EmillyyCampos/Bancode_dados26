@@ -45,8 +45,15 @@ CREATE TABLE habilitados (
 
 CREATE TABLE ordem_servico (
     idOrdemServico INT PRIMARY KEY AUTO_INCREMENT,
-    placa VARCHAR(10),
-    cpf CHAR(11),
+
+     cpf VARCHAR(11) NOT NULL,  
+     placa VARCHAR(9) NOT NULL,  
+     problema VARCHAR(255) NOT NULL,  
+     dataentrada DATE NOT NULL,
+     datasaida DATE,
+     status VARCHAR(50) NOT NULL,  
+     valor DECIMAL(10,2),  
+
     
     FOREIGN KEY (placa) REFERENCES veiculo(placa),
     FOREIGN KEY (cpf) REFERENCES equipe_mecanicos(cpf)
