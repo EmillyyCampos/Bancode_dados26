@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13/05/2026 às 22:57
--- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.2.4
+-- Tempo de geração: 03-Jun-2026 às 22:54
+-- Versão do servidor: 10.4.24-MariaDB
+-- versão do PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,16 +26,16 @@ USE `proodutos`;
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `categoria`
+-- Estrutura da tabela `categoria`
 --
 
 CREATE TABLE `categoria` (
   `idcategoria` int(11) NOT NULL,
   `categoria` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Despejando dados para a tabela `categoria`
+-- Extraindo dados da tabela `categoria`
 --
 
 INSERT INTO `categoria` (`idcategoria`, `categoria`) VALUES
@@ -47,7 +47,7 @@ INSERT INTO `categoria` (`idcategoria`, `categoria`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `produtos`
+-- Estrutura da tabela `produtos`
 --
 
 CREATE TABLE `produtos` (
@@ -58,59 +58,46 @@ CREATE TABLE `produtos` (
   `data` date NOT NULL,
   `ativo` bit(1) NOT NULL,
   `idcat` int(11) DEFAULT NULL,
-  `observacao` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `observacao` varchar(255) DEFAULT NULL,
+  `marca` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Despejando dados para a tabela `produtos`
+-- Extraindo dados da tabela `produtos`
 --
 
-INSERT INTO `produtos` (`idproduto`, `produto`, `preco`, `qtde`, `data`, `ativo`, `idcat`, `observacao`) VALUES
-(1, 'Picanha Peça', 49.99, 50, '2026-05-13', b'1', 3, 'Sem gordura'),
-(2, 'Ervilha', 4.50, 65, '2026-05-13', b'1', 1, 'Fresca');
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `prooduto`
---
-
-CREATE TABLE `prooduto` (
-  `idprooduto` int(11) NOT NULL,
-  `prooduto` varchar(200) NOT NULL,
-  `preco` decimal(10,2) NOT NULL,
-  `qtde` int(11) NOT NULL,
-  `datacadastro` date NOT NULL,
-  `ativo` bit(1) NOT NULL,
-  `idcat` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `produtos` (`idproduto`, `produto`, `preco`, `qtde`, `data`, `ativo`, `idcat`, `observacao`, `marca`) VALUES
+(1, 'Picanha Peça', '49.99', 50, '2026-05-13', b'1', 3, 'Sem gordura', 'Friboi'),
+(2, 'Ervilha', '4.50', 65, '2026-05-13', b'1', 1, 'Fresca', 'Quero'),
+(3, 'Leite Integral', '6.99', 40, '2026-06-02', b'1', 2, 'Caixa 1L', 'Italac'),
+(4, 'Queijo Mussarela', '34.90', 20, '2026-06-02', b'1', 2, 'Fatiado', 'Sadia'),
+(5, 'Presunto', '29.90', 25, '2026-06-02', b'1', 2, 'Fatiado', 'Perdigão'),
+(6, 'Milho Verde', '5.20', 60, '2026-06-02', b'1', 1, 'Lata 200g', 'Quero'),
+(8, 'Detergente', '2.99', 80, '2026-06-02', b'1', 4, 'Neutro', 'Ypê'),
+(9, 'Água Sanitária', '4.99', 50, '2026-06-02', b'1', 4, '1L', 'Qboa'),
+(10, 'Alcatra', '42.90', 30, '2026-06-02', b'1', 3, 'Peça', 'Friboi'),
+(11, 'Patinho Moído', '38.50', 25, '2026-06-02', b'1', 3, '500g', 'Friboi'),
+(12, 'Creme de Leite', '3.99', 70, '2026-06-02', b'1', 2, 'Caixa 200g', 'Nestlé');
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices de tabela `categoria`
+-- Índices para tabela `categoria`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`idcategoria`);
 
 --
--- Índices de tabela `produtos`
+-- Índices para tabela `produtos`
 --
 ALTER TABLE `produtos`
   ADD PRIMARY KEY (`idproduto`),
   ADD KEY `idcat` (`idcat`);
 
 --
--- Índices de tabela `prooduto`
---
-ALTER TABLE `prooduto`
-  ADD PRIMARY KEY (`idprooduto`),
-  ADD KEY `idcat` (`idcat`);
-
---
--- AUTO_INCREMENT para tabelas despejadas
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
@@ -123,29 +110,17 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `idproduto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idproduto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT de tabela `prooduto`
---
-ALTER TABLE `prooduto`
-  MODIFY `idprooduto` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Restrições para tabelas despejadas
+-- Restrições para despejos de tabelas
 --
 
 --
--- Restrições para tabelas `produtos`
+-- Limitadores para a tabela `produtos`
 --
 ALTER TABLE `produtos`
   ADD CONSTRAINT `produtos_ibfk_1` FOREIGN KEY (`idcat`) REFERENCES `categoria` (`idcategoria`);
-
---
--- Restrições para tabelas `prooduto`
---
-ALTER TABLE `prooduto`
-  ADD CONSTRAINT `prooduto_ibfk_1` FOREIGN KEY (`idcat`) REFERENCES `categoria` (`idcategoria`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
