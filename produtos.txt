@@ -1,0 +1,354 @@
+C:\xampp\mysql\bin> mysql -u root -p
+
+Enter password:
+
+Welcome to the MariaDB monitor.
+
+MariaDB [(none)]> USE proodutos;
+
+Database changed
+
+MariaDB [proodutos]> ALTER TABLE produtos ADD marca VARCHAR(100);
+
+Query OK, 0 rows affected
+
+MariaDB [proodutos]> UPDATE produtos
+-> SET marca = 'Friboi'
+-> WHERE idproduto = 1;
+
+Query OK, 1 row affected
+
+MariaDB [proodutos]> UPDATE produtos
+-> SET marca = 'Quero'
+-> WHERE idproduto = 2;
+
+Query OK, 1 row affected
+
+MariaDB [proodutos]> INSERT INTO produtos
+-> (produto, preco, qtde, data, ativo, idcat, observacao, marca)
+-> VALUES
+-> ('Leite Integral', 6.99, 40, '2026-06-02', 1, 2, 'Caixa 1L', 'Italac'),
+-> ('Queijo Mussarela', 34.90, 20, '2026-06-02', 1, 2, 'Fatiado', 'Sadia'),
+-> ('Presunto', 29.90, 25, '2026-06-02', 1, 2, 'Fatiado', 'Perdigão'),
+-> ('Milho Verde', 5.20, 60, '2026-06-02', 1, 1, 'Lata 200g', 'Quero'),
+-> ('Atum', 12.50, 35, '2026-06-02', 1, 1, 'Lata', 'Gomes da Costa'),
+-> ('Detergente', 2.99, 80, '2026-06-02', 1, 4, 'Neutro', 'Ypê'),
+-> ('Água Sanitária', 4.99, 50, '2026-06-02', 1, 4, '1L', 'Qboa'),
+-> ('Alcatra', 42.90, 30, '2026-06-02', 1, 3, 'Peça', 'Friboi'),
+-> ('Patinho Moído', 38.50, 25, '2026-06-02', 1, 3, '500g', 'Friboi'),
+-> ('Creme de Leite', 3.99, 70, '2026-06-02', 1, 2, 'Caixa 200g', 'Nestlé');
+
+Query OK, 10 rows affected
+
+MariaDB [proodutos]> SELECT * FROM produtos;
+
+MariaDB [proodutos]> exit
+
+Bye
+
+C:\xampp\mysql\bin> mysqldump -u root -p proodutos > proodutos_atualizado.sql
+
+Enter password:
+
+C:\xampp\mysql\bin> dir proodutos_atualizado.sql
+
+| Field      | Type          | Null | Key | Default | Extra          |
++------------+---------------+------+-----+---------+----------------+
+| idproduto  | int(11)       | NO   | PRI | NULL    | auto_increment |
+| produto    | varchar(200)  | NO   |     | NULL    |                |
+| preco      | decimal(10,2) | NO   |     | NULL    |                |
+| qtde       | int(11)       | NO   |     | NULL    |                |
+| data       | date          | NO   |     | NULL    |                |
+| ativo      | bit(1)        | NO   |     | NULL    |                |
+| idcat      | int(11)       | YES  | MUL | NULL    |                |
+| observacao | varchar(255)  | YES  |     | NULL    |                |
+| marca      | varchar(100)  | YES  |     | NULL    |                |
++------------+---------------+------+-----+---------+----------------+
+9 rows in set (0.037 sec)
+
+MariaDB [proodutos]> describe proodutos;
+ERROR 1146 (42S02): Table 'proodutos.proodutos' doesn't exist
+MariaDB [proodutos]> select * from produtos;
++-----------+------------------+-------+------+------------+-------+-------+----
+---------+----------------+
+| idproduto | produto          | preco | qtde | data       | ativo | idcat | obs
+ervacao  | marca          |
++-----------+------------------+-------+------+------------+-------+-------+----
+---------+----------------+
+|         1 | Picanha Peça     | 49.99 |   50 | 2026-05-13 | ?     |     3 | Sem
+ gordura | Friboi         |
+|         2 | Ervilha          |  4.50 |   65 | 2026-05-13 | ?     |     1 | Fre
+sca      | Quero          |
+|         3 | Leite Integral   |  6.99 |   40 | 2026-06-02 | ?     |     2 | Cai
+xa 1L    | Italac         |
+|         4 | Queijo Mussarela | 34.90 |   20 | 2026-06-02 | ?     |     2 | Fat
+iado     | Sadia          |
+|         5 | Presunto         | 29.90 |   25 | 2026-06-02 | ?     |     2 | Fat
+iado     | Perdigão       |
+|         6 | Milho Verde      |  5.20 |   60 | 2026-06-02 | ?     |     1 | Lat
+a 200g   | Quero          |
+|         7 | Atum             | 12.50 |   35 | 2026-06-02 | ?     |     1 | Lat
+a        | Gomes da Costa |
+|         8 | Detergente       |  2.99 |   80 | 2026-06-02 | ?     |     4 | Neu
+tro      | Ypê            |
+|         9 | Água Sanitária   |  4.99 |   50 | 2026-06-02 | ?     |     4 | 1L
+         | Qboa           |
+|        10 | Alcatra          | 42.90 |   30 | 2026-06-02 | ?     |     3 | Peç
+a        | Friboi         |
+|        11 | Patinho Moído    | 38.50 |   25 | 2026-06-02 | ?     |     3 | 500
+g        | Friboi         |
+|        12 | Creme de Leite   |  3.99 |   70 | 2026-06-02 | ?     |     2 | Cai
+xa 200g  | Nestlé         |
++-----------+------------------+-------+------+------------+-------+-------+----
+---------+----------------+
+12 rows in set (0.000 sec)
+
+MariaDB [proodutos]> select produto, preco from produtos;
++------------------+-------+
+| produto          | preco |
++------------------+-------+
+| Picanha Peça     | 49.99 |
+| Ervilha          |  4.50 |
+| Leite Integral   |  6.99 |
+| Queijo Mussarela | 34.90 |
+| Presunto         | 29.90 |
+| Milho Verde      |  5.20 |
+| Atum             | 12.50 |
+| Detergente       |  2.99 |
+| Água Sanitária   |  4.99 |
+| Alcatra          | 42.90 |
+| Patinho Moído    | 38.50 |
+| Creme de Leite   |  3.99 |
++------------------+-------+
+12 rows in set (0.000 sec)
+
+MariaDB [proodutos]> delete from produtos where idproduto = 7;
+Query OK, 1 row affected (0.026 sec)
+
+MariaDB [proodutos]> select * from produtos where marca = 'Friboi';
++-----------+---------------+-------+------+------------+-------+-------+-------
+------+--------+
+| idproduto | produto       | preco | qtde | data       | ativo | idcat | observ
+acao  | marca  |
++-----------+---------------+-------+------+------------+-------+-------+-------
+------+--------+
+|         1 | Picanha Peça  | 49.99 |   50 | 2026-05-13 | ?     |     3 | Sem go
+rdura | Friboi |
+|        10 | Alcatra       | 42.90 |   30 | 2026-06-02 | ?     |     3 | Peça
+      | Friboi |
+|        11 | Patinho Moído | 38.50 |   25 | 2026-06-02 | ?     |     3 | 500g
+      | Friboi |
++-----------+---------------+-------+------+------------+-------+-------+-------
+------+--------+
+3 rows in set (0.001 sec)
+
+MariaDB [proodutos]> select * from produtos where preco > 20;
++-----------+------------------+-------+------+------------+-------+-------+----
+---------+----------+
+| idproduto | produto          | preco | qtde | data       | ativo | idcat | obs
+ervacao  | marca    |
++-----------+------------------+-------+------+------------+-------+-------+----
+---------+----------+
+|         1 | Picanha Peça     | 49.99 |   50 | 2026-05-13 | ?     |     3 | Sem
+ gordura | Friboi   |
+|         4 | Queijo Mussarela | 34.90 |   20 | 2026-06-02 | ?     |     2 | Fat
+iado     | Sadia    |
+|         5 | Presunto         | 29.90 |   25 | 2026-06-02 | ?     |     2 | Fat
+iado     | Perdigão |
+|        10 | Alcatra          | 42.90 |   30 | 2026-06-02 | ?     |     3 | Peç
+a        | Friboi   |
+|        11 | Patinho Moído    | 38.50 |   25 | 2026-06-02 | ?     |     3 | 500
+g        | Friboi   |
++-----------+------------------+-------+------+------------+-------+-------+----
+---------+----------+
+5 rows in set (0.025 sec)
+
+MariaDB [proodutos]> select * from produtos where qtde <= 60;
++-----------+------------------+-------+------+------------+-------+-------+----
+---------+----------+
+| idproduto | produto          | preco | qtde | data       | ativo | idcat | obs
+ervacao  | marca    |
++-----------+------------------+-------+------+------------+-------+-------+----
+---------+----------+
+|         1 | Picanha Peça     | 49.99 |   50 | 2026-05-13 | ?     |     3 | Sem
+ gordura | Friboi   |
+|         3 | Leite Integral   |  6.99 |   40 | 2026-06-02 | ?     |     2 | Cai
+xa 1L    | Italac   |
+|         4 | Queijo Mussarela | 34.90 |   20 | 2026-06-02 | ?     |     2 | Fat
+iado     | Sadia    |
+|         5 | Presunto         | 29.90 |   25 | 2026-06-02 | ?     |     2 | Fat
+iado     | Perdigão |
+|         6 | Milho Verde      |  5.20 |   60 | 2026-06-02 | ?     |     1 | Lat
+a 200g   | Quero    |
+|         9 | Água Sanitária   |  4.99 |   50 | 2026-06-02 | ?     |     4 | 1L
+         | Qboa     |
+|        10 | Alcatra          | 42.90 |   30 | 2026-06-02 | ?     |     3 | Peç
+a        | Friboi   |
+|        11 | Patinho Moído    | 38.50 |   25 | 2026-06-02 | ?     |     3 | 500
+g        | Friboi   |
++-----------+------------------+-------+------+------------+-------+-------+----
+---------+----------+
+8 rows in set (0.001 sec)
+
+MariaDB [proodutos]> select nome, preco from produtos order by preco asc limit 5
+;
+ERROR 1054 (42S22): Unknown column 'nome' in 'field list'
+MariaDB [proodutos]> select produto, preco from produtos order by preco asc limi
+t 5;
++----------------+-------+
+| produto        | preco |
++----------------+-------+
+| Detergente     |  2.99 |
+| Creme de Leite |  3.99 |
+| Ervilha        |  4.50 |
+| Água Sanitária |  4.99 |
+| Milho Verde    |  5.20 |
++----------------+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [proodutos]> select count(*) as total_produtos from produtos;
++----------------+
+| total_produtos |
++----------------+
+|             11 |
++----------------+
+1 row in set (0.000 sec)
+
+MariaDB [proodutos]> select avg(preco) as preco_medio from produtos;
++-------------+
+| preco_medio |
++-------------+
+|   20.440909 |
++-------------+
+1 row in set (0.000 sec)
+
+MariaDB [proodutos]> select produto, qtde from produtos order by qtde desc limit
+ 1;
++------------+------+
+| produto    | qtde |
++------------+------+
+| Detergente |   80 |
++------------+------+
+1 row in set (0.000 sec)
+
+MariaDB [proodutos]> select p.produto, c.categoria from produtos p join categori
+a c on p.id_categoria = c.id_categoria;
+ERROR 1054 (42S22): Unknown column 'p.id_categoria' in 'on clause'
+MariaDB [proodutos]> select p.produto, c.categoria from produtos p join categori
+a c on p.id_categoria = c.id_cat;
+ERROR 1054 (42S22): Unknown column 'p.id_categoria' in 'on clause'
+MariaDB [proodutos]> select p.produto, c.categoria from produtos p join categori
+a c on p.id_categoria = c.idcat;
+ERROR 1054 (42S22): Unknown column 'p.id_categoria' in 'on clause'
+MariaDB [proodutos]> select p.produto, c.categoria from produtos p join categori
+a c on p.idcat = c.idcat;
+ERROR 1054 (42S22): Unknown column 'c.idcat' in 'on clause'
+MariaDB [proodutos]> select p.produto, c.categoria from produtos p join categori
+a c on p.idcat = c.idcategoria;
++------------------+------------+
+| produto          | categoria  |
++------------------+------------+
+| Ervilha          | Enlatados  |
+| Milho Verde      | Enlatados  |
+| Leite Integral   | Laticínios |
+| Queijo Mussarela | Laticínios |
+| Presunto         | Laticínios |
+| Creme de Leite   | Laticínios |
+| Picanha Peça     | Açougue    |
+| Alcatra          | Açougue    |
+| Patinho Moído    | Açougue    |
+| Detergente       | Limpeza    |
+| Água Sanitária   | Limpeza    |
++------------------+------------+
+11 rows in set (0.001 sec)
+
+MariaDB [proodutos]> select p.produto, p.marca, p.preco from produtos p join cat
+egorias c on p.idcat = c.idcategoria where c.categoria = 'Laticínios';
+ERROR 1146 (42S02): Table 'proodutos.categorias' doesn't exist
+MariaDB [proodutos]> select p.produto, p.marca, p.preco from produtos p join cat
+egoria c on p.idcat = c.idcategoria where c.categoria = 'Laticínios';
++------------------+----------+-------+
+| produto          | marca    | preco |
++------------------+----------+-------+
+| Leite Integral   | Italac   |  6.99 |
+| Queijo Mussarela | Sadia    | 34.90 |
+| Presunto         | Perdigão | 29.90 |
+| Creme de Leite   | Nestlé   |  3.99 |
++------------------+----------+-------+
+4 rows in set (0.001 sec)
+
+MariaDB [proodutos]> select c.categoria, count(*) as total_produtos from produto
+s p join categoria c on p.idcategoria = c.idcat group by c.nomecat;
+ERROR 1054 (42S22): Unknown column 'p.idcategoria' in 'on clause'
+MariaDB [proodutos]> select c.categoria, count(*) as total_produtos from produto
+s p join categoria c on p.idcat = c.idcat group by c.nomecat;
+ERROR 1054 (42S22): Unknown column 'c.idcat' in 'on clause'
+MariaDB [proodutos]> select c.categoria, count(*) as total_produtos from produto
+s p join categoria c on p.idcat = c.idcategoria group by c.nomecat;
+ERROR 1054 (42S22): Unknown column 'c.nomecat' in 'group statement'
+MariaDB [proodutos]> select c.categoria, count(*) as total_produtos from produto
+s p join categoria c on p.idcategoria = c.idcategoria group by c.nomecat;
+ERROR 1054 (42S22): Unknown column 'p.idcategoria' in 'on clause'
+MariaDB [proodutos]> select c.categoria, count(*) as total_produtos from produto
+s p join categoria c on p.idcategoria = c.idcategoria group by c.categoria;
+ERROR 1054 (42S22): Unknown column 'p.idcategoria' in 'on clause'
+MariaDB [proodutos]> select c.categoria, count(*) as total_produtos from produto
+s p join categoria c on p.idcategoria = c.idcategoria group by c.idcategoria;
+ERROR 1054 (42S22): Unknown column 'p.idcategoria' in 'on clause'
+MariaDB [proodutos]> select c.categoria, count(*) as total_produto from produtos
+ p join categoria c on p.idcategoria = c.idcategoria group by c.idcategoria;
+ERROR 1054 (42S22): Unknown column 'p.idcategoria' in 'on clause'
+MariaDB [proodutos]> select c.categoria, count(*) as total_produto from produtos
+ p join categoria c on p.Ctrl-C -- exit!a group by c.idcategoria;
+Bye
+
+C:\xampp\mysql\bin>
+
+C:\xampp\mysql\bin>
+
+C:\xampp\mysql\bin>
+
+C:\xampp\mysql\bin>
+
+C:\xampp\mysql\bin>
+
+C:\xampp\mysql\bin>
+
+C:\xampp\mysql\bin> use proodutos
+'use' não é reconhecido como um comando interno
+ou externo, um programa operável ou um arquivo em lotes.
+
+C:\xampp\mysql\bin> mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 199
+Server version: 10.4.24-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use proodutos
+Database changed
+MariaDB [proodutos]> select c.idcategoria, count(*) as total_produtos from produ
+tos p join categoria c on p.idcategoria = c.idcategoria group by c.categoria;
+ERROR 1054 (42S22): Unknown column 'p.idcategoria' in 'on clause'
+MariaDB [proodutos]> select c.idcategoria, count(*) as total_produtos from produ
+tos p join categoria c on p.idcategoria = c.idcategoria group by c.cat;
+ERROR 1054 (42S22): Unknown column 'p.idcategoria' in 'on clause'
+MariaDB [proodutos]> select c.idcategoria, count(*) as total_produtos from produ
+tos p join categoria c on p.idcategoria = c.idcat group by c.cat;
+ERROR 1054 (42S22): Unknown column 'p.idcategoria' in 'on clause'
+MariaDB [proodutos]> select c.idcategoria, count(*) as total_produtos from produ
+tos p join categoria c on p.idcategoria = c.idcat group by c.categoria;
+ERROR 1054 (42S22): Unknown column 'p.idcategoria' in 'on clause'
+MariaDB [proodutos]> select c.idcategoria, count(*) as total_produtos from produ
+tos p join categoria c on p.idcat = c.idcat group by c.categoria;
+ERROR 1054 (42S22): Unknown column 'c.idcat' in 'on clause'
+MariaDB [proodutos]> select c.idcat, count(*) as total_produtos from produtos p
+join categoria c on p.idcat = c.idcat group by c.categoria;
+ERROR 1054 (42S22): Unknown column 'c.idcat' in 'field list'
+MariaDB [proodutos]> select c.idcat, count(*) as total_produtos from produtos p
+join categoria c on p.idcat = c.idcat group by c.cat;
+ERROR 1054 (42S22): Unknown column 'c.idcat' in 'field list'
+MariaDB [proodutos]> select c.idcat, count(*) as total_produtos from produtos p
+join categoria c on p.idcat = c.idcat group by c.cat;
