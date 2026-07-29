@@ -1,0 +1,70 @@
+create table cliente(
+    codcliente int PRIMARY KEY AUTO_INCREMENT,
+    cliente varchar(255) not null,
+    email varchar(100) UNIQUE not null,
+    cpf varchar(100) UNIQUE not null);
+    
+create table quarto(
+    codquarto int PRIMARY KEY AUTO_INCREMENT,
+    quarto varchar(255) not null,
+    andar varchar(100) UNIQUE not null,
+    tipo varchar(100) UNIQUE not null);
+   
+create table servico(
+    codservico int PRIMARY KEY AUTO_INCREMENT,
+    servico varchar(255) not null,
+    qtde int not null,
+    valor decimal(7,2) not null,
+    tipo varchar(255) not null);
+    
+create table hospedagem(
+    idhospedagem int PRIMARY KEY AUTO_INCREMENT,
+    dataentrada date not null,
+    datasaida date,
+    horaentrada time not null,
+    horasaida time,
+    totalhospedagem decimal(7,2),
+    codcli int,
+    codquarto int,
+    FOREIGN KEY (codcli) REFERENCES cliente(codcliente),
+    FOREIGN KEY (codquarto) REFERENCES quarto(codquarto));
+
+create table servicoshospedagem(
+    idhospedagem int,
+   	idservico int,
+    dataservico date,
+    horaservico time,
+    total decimal(7,2),
+    FOREIGN KEY (idhospedagem) REFERENCES hospedagem(idhospedagem),
+    FOREIGN KEY (idservico) REFERENCES servico(codservico));
+    
+
+
+
+
+
+INSERT into cliente (cliente, cpf, email) VALUES
+('Eloisa Mendes', '155.666.789-90', 'eloisamendes@email.com'),
+('Julia Aparecida', '280.123.789.78', 'julia@email.com'),
+('Jessica Oliveira', '678.334.816-23', 'jessicaoli@email.com'),
+('Luiz Gonzaga', '590.432.889-56', 'luizgonzaga@email.com'),
+('Gabriel Picon', '256.112.764-74', 'gabrielpicon@email.com');
+
+INSERT into quarto (quarto, andar, tipo) VALUES
+('22', '2 Andar', 'Família - 2 camas'),
+('23', '2 Andar', 'Casal - 1 cama'),
+('24', '2 Andar', 'Suíte - 2 camas'),
+('25', '2 Andar', 'Família - 4 camas'),
+('26', '2 Andar', 'Casal - 2 camas'),
+('32', '3 Andar', 'Família - 2 camas'),
+('33', '3 Andar', 'Solteiro - 1 cama'),
+('34', '3 Andar', 'Suíte - 2 camas'),
+('35', '3 Andar', 'Família - 3 camas'),
+('36', '3 Andar', 'Casal - 2 camas'),
+('41', '4 Andar', 'Família - 2 camas'),
+('42', '4 Andar', 'Solteiro - 1 cama'),
+('43', '4 Andar', 'Casal - 2 camas'),
+('44', '4 Andar', 'Família - 4 camas'),
+('45', '4 Andar', 'Suíte - 3 camas'),
+('46', '4 Andar', 'Solteiro - 1 cama');
+    
